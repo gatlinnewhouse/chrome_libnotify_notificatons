@@ -1,0 +1,9 @@
+{
+  "name": "com.initiated.chrome_libnotify_notifications",
+  "description": "Libnotify Notifications in Chrome",
+  "path": "HOST_PATH",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://gphchdpdmccpjmpiilaabhpdfogeiphf/"
+  ]
+}
