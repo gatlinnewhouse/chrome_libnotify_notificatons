@@ -1,4 +1,4 @@
-/* 
+/*
  * Nick Mossie
  * ld@initiated.com
  *
@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
         fp=fopen("/tmp/bob", "a");
 #endif
 
-        // Native Messaging spec is 4 chars specifying an integer 
+        // Native Messaging spec is 4 chars specifying an integer
         // length followed by JSON
         read(STDIN_FILENO, input_len.str, 4);
         if(input_len.num > 0) {
@@ -99,15 +99,15 @@ int main(int argc, char** argv) {
                 // we have an image url.. use CURL to get it
                 curl = curl_easy_init();
                 if(curl) {
-                    icon_filename = tmpnam(NULL);
+                    icon_filename = mkstemp(NULL);
 #ifdef DEBUG
                     fprintf(fp, "icon_filename: %s\n", icon_filename);
 #endif
                     if(icon_filename != NULL) {
                         curl_fp=fopen(icon_filename, "w");
                         curl_easy_setopt(curl, CURLOPT_URL, json_object_get_string(json_iconUrl));
-                        // set to null to use the internal function, which is 
-                        // write to the file handle specified in 
+                        // set to null to use the internal function, which is
+                        // write to the file handle specified in
                         // CURLOPT_WRITEDATA
                         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, NULL);
                         curl_easy_setopt(curl, CURLOPT_WRITEDATA, curl_fp);
