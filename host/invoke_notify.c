@@ -7,10 +7,10 @@
  * loops and displays libnotify notifications
  *
  */
-
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#include <json/json.h>
+#include <json.h>
 #include <libnotify/notify.h>
 #include <curl/curl.h>
 
