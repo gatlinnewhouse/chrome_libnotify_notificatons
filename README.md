@@ -1,4 +1,13 @@
-This is a clone of the code from the Chrome Store, I am not the original author.
+**FIXED (Hopefully)**
+
+This repo contains fixes based on Faheem Pervez's review of the extension in the Chrome Store.
+
+I have included their suggested fixes to the code and their review in the README.
+
+Perhaps oneday I will make a MakeFile and PackageBuild and upload this to the AUR.
+
+===
+This is a fork of the clone of the code from the Chrome Store, I am not the original author.
 
 Properly support libnotify notifications in Chrome.
 ===
@@ -12,7 +21,46 @@ Also, the previous solutions are based on NPAPI, which is being phased out.  Thi
 
 Installation
 ===
-Extract it and run the install.sh.  Hopefully this can be automated in the future.
+~~Extract it and run the install.sh.  Hopefully this can be automated in the future.~~
+
+Faheem Pervez said on Aug 28, 2015
+```
+I actually got this to work on Arch Linux & Chromium 44, but sadly it cannot intercept Chrome notifications created by extensions. To be fair, the author does say "this catches Chrome Webkit notifications from webpages" and my short-sightedness is my own.
+
+If someone does have a need for web notifications then here's how I got this working:
+
+* Make sure libcurl and json-c is installed (and their -dev packages if your distro likes to split them up)
+
+In invoke_notify.c:
+
+* add #include <stdint.h> under the string.h line
+
+* remove the "json/" part from the relevant #include line
+```
+This is the part I have **already done**. Just clone the repo and follow these instructions:
+```
+* Build with: gcc -march=native -O2 -pipe -fstack-protector-strong --param=ssp-buffer-size=4 -o invoke_notify `pkg-config --cflags --libs libnotify json-c libcurl` invoke_notify.c
+
+* Open com.initiated.chrome_libnotify_notifications.json and change the extension ID already in there to gphchdpdmccpjmpiilaabhpdfogeiphf
+
+* Get a root shell
+
+If using chromium:
+TARGET=/etc/chromium/native-messaging-hosts/
+
+Chrome:
+TARGET=/etc/opt/chrome/native-messaging-hosts
+
+* mkdir -p $TARGET
+
+* cd $TARGET
+
+* copy com.initiated.chrome_libnotify_notifications.json and invoke_notify into target
+
+* edit com.initiated.chrome_libnotify_notifications.json and replace HOST_PATH with $TARGET/invoke_notify (perform the expansion manually in your mind)
+
+* make sure the $TARGET directory has 755 permission and is owned by root:root, the json file is 644 and owned by root:root and the invoke_notify binary 755 and root:root
+```
 
 TODO:
 ===
