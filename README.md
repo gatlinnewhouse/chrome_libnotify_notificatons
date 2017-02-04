@@ -62,7 +62,7 @@ TARGET=/etc/opt/chrome/native-messaging-hosts
 * make sure the $TARGET directory has 755 permission and is owned by root:root, the json file is 644 and owned by root:root and the invoke_notify binary 755 and root:root
 ```
 
-TODO:
+~~TODO:~~
 ===
 - make it work with gmail :(
 
